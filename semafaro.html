@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transito</title>
+    <style>
+        body {
+            background-color: azure;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            color: rgb(0, 0, 0);
+        }
+
+        main {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: rgb(0, 0, 0);
+        }
+
+        p {
+            color: rgb(7, 12, 17);
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid rgb(55, 8, 182);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            max-height: 250px;
+            width: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Bem-vindo à página de controle de trânsito</h1>
+        <section id="momento">No momento está:</section>
+        <div id="infmarvel"></div>
+    </main>
+    <script>
+        let momento = document.getElementById("momento");
+        let marvel = document.getElementById("infmarvel");
+        fetch("https://niloweb.com.br/transit-room/api/reg_endpoint.php")
+            .then(resposta => resposta.json()
+                .then(dados1 => {
+                    if (dados1[0].res == "B") {
+                        console.log(dados1);
+                        momento.innerHTML = `No momento está bloqueado`;
+                        marvel.innerHTML = `
+                            <img src="img/homemaranha.webp" alt="">
+                        `;
+                    } else if (dados1[0].res == "L") {
+                        console.log(dados1);
+                        momento.innerHTML = `No momento está livre`;
+                        marvel.innerHTML = `
+                            <img src="img/hulk.jpg" alt="">
+                        `;
+                    } else {
+                        console.log(dados1);
+                        momento.innerHTML = `No momento está aguardando`;
+                        marvel.innerHTML = `
+                            <img src="img/wolverine.jpg" alt="">
+                        `;
+                    }
+                })
+            );
+    </script>
+</body>
+
+</html>
